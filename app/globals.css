@@ -9,7 +9,7 @@
 
 /* Layer paper grain over the existing cream and olive surfaces. */
 :root {
-  --paper-grain: url('/textures/paper-grain.svg');
+  --paper-grain: url('../public/textures/paper-grain.svg');
   --paper-wash: radial-gradient(
     ellipse at 20% 15%,
     rgb(183 158 116 / 9%),
@@ -53,7 +53,7 @@ footer {
   z-index: -1;
   width: clamp(110px, 16vw, 205px);
   height: 340px;
-  background: url('/textures/botanical-sprig.svg') center / contain no-repeat;
+  background: url('../public/textures/botanical-sprig.svg') center / contain no-repeat;
   opacity: .3;
   pointer-events: none;
 }
