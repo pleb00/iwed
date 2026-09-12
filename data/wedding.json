@@ -1,22 +1,71 @@
 {
   "couple": {
-    "bride": { "name": "Nuriel", "fullName": "Nuriel Kaunaini Muhammad", "familyLabel": "Putri pertama dari", "father": "Bapak Ainur Rofiq Mustamar", "mother": "Ibu Dyah Indriyati" },
-    "groom": { "name": "Dewi", "fullName": "Dewi Fuji Astuti", "familyLabel": "Putra kedua dari", "father": "Bapak Muhammad Maruf", "mother": "Ibu Mahmadah" }
+    "bride": {
+      "name": "Nuriel",
+      "fullName": "Nuriel Kaunaini Muhammad",
+      "familyLabel": "Putri pertama dari",
+      "father": "Bapak Ainur Rofiq Mustamar",
+      "mother": "Ibu Dyah Indriyati"
+    },
+    "groom": {
+      "name": "Dewi",
+      "fullName": "Dewi Fuji Astuti",
+      "familyLabel": "Putra kedua dari",
+      "father": "Bapak Muhammad Maruf",
+      "mother": "Ibu Mahmadah"
+    }
   },
   "date": "2026-11-22T08:00:00+07:00",
   "timeZone": "Asia/Jakarta",
   "timeZoneLabel": "WIB",
   "guest": "Bapak/Ibu/Saudara/i",
-  "venue": { "name": "Hotel Grand Tjokro", "room": "Lantai 2", "address": "Daan Mogot Rd No.63, RT.5/RW.1, North Tanjung Duren, Grogol petamburan, West Jakarta City, Jakarta 11470", "mapQuery": "Hotel Grand Tjokro, Grogol petamburan, Jakarta Barat, Indonesia", "note": "Lokasi contoh. Alamat dan titik peta akan diperbarui menjelang acara." },
+  "venue": {
+    "name": "Hotel Grand Tjokro",
+    "room": "Lantai 2",
+    "address": "Daan Mogot Rd No.63, RT.5/RW.1, North Tanjung Duren, Grogol petamburan, West Jakarta City, Jakarta 11470",
+    "mapQuery": "Hotel Grand Tjokro, Grogol petamburan, Jakarta Barat, Indonesia",
+    "note": "Lokasi contoh. Alamat dan titik peta akan diperbarui menjelang acara."
+  },
   "events": [
-    { "name": "Akad Nikah", "start": "2027-06-20T08:00:00+07:00", "end": "2027-06-20T10:00:00+07:00", "description": "Mengikat janji suci, memulai cerita abadi." },
-    { "name": "Resepsi", "start": "2027-06-20T11:00:00+07:00", "end": "2027-06-20T14:00:00+07:00", "description": "Merayakan cinta bersama orang-orang terkasih." }
+    {
+      "name": "Akad Nikah",
+      "start": "2026-11-22T09:00:00+07:00",
+      "end": "2026-11-22T11:00:00+07:00",
+      "description": "Mengikat janji suci, memulai cerita abadi."
+    },
+    {
+      "name": "Resepsi",
+      "start": "2027-06-20T12:00:00+07:00",
+      "end": "2027-06-20T14:00:00+07:00",
+      "description": "Merayakan cinta bersama orang-orang terkasih."
+    }
   ],
   "story": [
-    { "year": "2023", "title": "Tumbuh bersama", "description": "Dari secangkir kopi hingga perjalanan kecil, kami belajar saling mengenal, mendukung mimpi, dan menemukan rumah dalam satu sama lain." },
-    { "year": "2026", "title": "Satu langkah lebih dekat", "description": "Dengan restu kedua keluarga, kami memutuskan untuk melangkah bersama. Sebuah janji untuk saling memilih, hari ini dan seterusnya." }
+    {
+      "year": "2024",
+      "title": "Berawal dari secangkir kopi",
+      "description": "Pertemuan kami di Fore Coffee menjadi awal dari cerita ini. Di sela obrolan dan secangkir kopi, kami mulai mengenal satu sama lain. Siapa sangka, pertemuan sederhana itu membawa kami sejauh ini."
+    },
+    {
+      "year": "2025",
+      "title": "Semakin mengenal, semakin yakin",
+      "description": "Seiring waktu, kami berbagi lebih banyak cerita, tawa, dan keseharian. Kami belajar memahami perbedaan serta saling menemani dalam suka maupun masa sulit. Dari kebersamaan itu, tumbuh keyakinan untuk melangkah lebih jauh."
+    },
+    {
+      "year": "2026",
+      "title": "Memilih untuk selamanya",
+      "description": "Tahun ini, kami memilih untuk melanjutkan perjalanan sebagai pasangan hidup. Dari pertemuan di sebuah kedai kopi, kini kami bersiap membangun rumah dan cerita bersama, dengan cinta serta doa orang-orang terkasih."
+    }
   ],
   "copy": {
-    "eyebrow": "THE WEDDING OF", "tagline": "Dua hati, satu cerita, selamanya.", "invitation": "Dengan penuh cinta dan rasa syukur, kami mengundang Anda untuk menjadi bagian dari hari bahagia kami.", "greeting": "Assalamu’alaikum Warahmatullahi Wabarakatuh", "intro": "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.", "quote": "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.", "quoteSource": "QS. Ar-Rum: 21", "closing": "Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami.", "footer": "Dibuat dengan cinta, untuk sebuah cerita selamanya."
+    "eyebrow": "THE WEDDING OF",
+    "tagline": "Dua hati, satu cerita, selamanya.",
+    "invitation": "Dengan penuh cinta dan rasa syukur, kami mengundang Anda untuk menjadi bagian dari hari bahagia kami.",
+    "greeting": "Assalamu’alaikum Warahmatullahi Wabarakatuh",
+    "intro": "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.",
+    "quote": "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.",
+    "quoteSource": "QS. Ar-Rum: 21",
+    "closing": "Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami.",
+    "footer": "Dibuat dengan cinta, untuk sebuah cerita selamanya."
   }
 }
