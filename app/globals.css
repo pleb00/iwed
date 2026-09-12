@@ -6,3 +6,92 @@
 .hero-copy,.hero-art{min-width:0}h1,.person h3{overflow-wrap:anywhere}
 @media(max-width:760px){h1 .amp{display:block;line-height:.8;margin:8px 0;font-size:35px}h1{font-size:64px}.hero-copy{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* Layer paper grain over the existing cream and olive surfaces. */
+:root {
+  --paper-grain: url('/textures/paper-grain.svg');
+  --paper-wash: radial-gradient(
+    ellipse at 20% 15%,
+    rgb(183 158 116 / 9%),
+    transparent 65%
+  );
+}
+
+body,
+.quote-band,
+.events-section,
+.event-card,
+.venue-grid,
+.portrait,
+footer {
+  background-image: var(--paper-grain), var(--paper-wash);
+  background-size: 256px 256px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+}
+
+.arch {
+  background-image:
+    var(--paper-grain),
+    radial-gradient(ellipse at 65% 40%, #f6f3e9 0, transparent 60%);
+  background-size: 256px 256px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+}
+
+/* Sparse floral sprigs sit behind the content, along alternating edges. */
+.couple-section,
+.events-section,
+.location-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.couple-section::before,
+.events-section::before,
+.location-section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: clamp(110px, 16vw, 205px);
+  height: 340px;
+  background: url('/textures/botanical-sprig.svg') center / contain no-repeat;
+  opacity: .3;
+  pointer-events: none;
+}
+
+.couple-section::before {
+  top: 35px;
+  left: 0;
+  transform: rotate(-12deg);
+  transform-origin: bottom center;
+}
+
+.events-section::before {
+  right: 0;
+  bottom: 25px;
+  transform: scaleX(-1);
+  opacity: .24;
+}
+
+.location-section::before {
+  top: 0;
+  right: 0;
+  height: 240px;
+  transform: scaleX(-1);
+  opacity: .22;
+}
+
+@media (max-width: 760px) {
+  .couple-section::before,
+  .events-section::before,
+  .location-section::before {
+    width: 90px;
+    height: 195px;
+    opacity: .18;
+    transform: none;
+  }
+
+  .events-section::before,
+  .location-section::before {
+    transform: scaleX(-1);
+  }
+}
