@@ -6,6 +6,7 @@ import couplePhoto from "@/public/photos/couple.webp";
 import bridePhoto from "@/public/photos/bride.webp";
 import groomPhoto from "@/public/photos/groom.webp";
 import storyPhoto from "@/public/photos/story.webp";
+import togetherPhoto from "@/public/photos/together.webp";
 import bcaLogo from "@/public/banks/bca.png";
 import bniLogo from "@/public/banks/bni.png";
 import {
@@ -203,6 +204,14 @@ export default function Invitation() {
           <h2>Meet the happy couple</h2>
           <p className="greeting">{data.copy.greeting}</p>
           <p className="section-intro">{data.copy.intro}</p>
+          <figure className="together-photo">
+            <Image
+              src={togetherPhoto}
+              alt="Dewi dan Nuriel berpose bersama dalam busana adat"
+              placeholder="blur"
+              sizes="(max-width: 760px) 85vw, 420px"
+            />
+          </figure>
           <div className="couple-grid">
             {[data.couple.bride, data.couple.groom].map((person, index) => (
               <article className="person" key={person.name}>
@@ -270,7 +279,7 @@ export default function Invitation() {
             <span className="eyebrow">EVERY LOVE HAS A STORY</span>
             <h2>This is ours.</h2>
             <figure className="story-photo">
-              <Image src={storyPhoto} alt="Dewi dan Nuriel saling menggenggam tangan" placeholder="blur" sizes="(max-width: 760px) 90vw, 420px" />
+              <Image src={storyPhoto} alt="Dewi dan Nuriel saling berhadapan dengan kain biru di depan mereka" placeholder="blur" sizes="(max-width: 760px) 90vw, 420px" />
               <figcaption></figcaption>
             </figure>
           </div>

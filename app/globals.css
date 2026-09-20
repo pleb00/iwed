@@ -108,7 +108,9 @@ footer {
 .person-photo { object-fit:cover; object-position:center 35%; }
 .couple-grid { max-width:760px; gap:110px; }
 .couple-amp { top:155px; }
-.story-photo { margin:30px 0 0; padding:9px; border:1px solid var(--line); background:#fffaf3; transform:rotate(-2deg); }
+.story-photo { margin:30px 0 0; padding:9px; border:1px solid var(--line); background:#fffaf3; }
+.together-photo { max-width:420px; margin:36px auto 0; padding:9px; border:1px solid var(--line); background:#fffaf3; }
+.together-photo img { display:block; width:100%; height:auto; }
 .story-photo img { display:block; width:100%; height:auto; }
 .story-photo figcaption { text-align:center; font:italic 20px var(--serif); padding:14px 0 6px; color:#536b89; }
 footer { color:#f8f3ec; }
