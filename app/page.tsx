@@ -181,13 +181,10 @@ export default function Invitation() {
               <div className="arch">
                 <Image src={couplePhoto} alt="Dewi dan Nuriel dalam busana adat bernuansa biru navy" fill preload placeholder="blur" sizes="(max-width: 760px) 310px, 460px" className="hero-photo" />
               </div>
-              <div className="seal">
+              {/* <div className="seal">
                 <Heart size={20} strokeWidth={1} />
                 <span>WITH LOVE</span>
-              </div>
-              <span className="art-caption">
-                A NEW CHAPTER, WRITTEN TOGETHER
-              </span>
+              </div> */}
             </div>
           </div>
           <a className="scroll-hint" href="#couple">
