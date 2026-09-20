@@ -15,6 +15,10 @@
       "mother": "Ibu Dyah Indriyati"
     }
   },
+  "gifts": [
+    { "bank": "BCA", "accountNumber": "8640369087", "accountHolder": "Nuriel Kaunaini Muhammad" },
+    { "bank": "BNI", "accountNumber": "0858715898", "accountHolder": "Dewi Fuji Astuti" }
+  ],
   "date": "2026-11-22T08:00:00+07:00",
   "timeZone": "Asia/Jakarta",
   "timeZoneLabel": "WIB",
@@ -43,18 +47,18 @@
   "story": [
     {
       "year": "2024",
-      "title": "Berawal dari secangkir kopi",
-      "description": "Pertemuan kami di Fore Coffee menjadi awal dari cerita ini. Di sela obrolan dan secangkir kopi, kami mulai mengenal satu sama lain. Siapa sangka, pertemuan sederhana itu membawa kami sejauh ini."
+      "title": "Pertemuan pertama",
+      "description": "Kami pertama kali bertemu di Fore Coffee. Dari obrolan santai saat itu, kami mulai berkenalan dan tetap berkomunikasi."
     },
     {
       "year": "2025",
-      "title": "Semakin mengenal, semakin yakin",
-      "description": "Seiring waktu, kami berbagi lebih banyak cerita, tawa, dan keseharian. Kami belajar memahami perbedaan serta saling menemani dalam suka maupun masa sulit. Dari kebersamaan itu, tumbuh keyakinan untuk melangkah lebih jauh."
+      "title": "Mengenal lebih dekat",
+      "description": "Kami mulai lebih mengenal kebiasaan, keseharian, dan cara berpikir masing-masing. Kami juga belajar memahami perbedaan dan membicarakan rencana ke depan."
     },
     {
       "year": "2026",
-      "title": "Memilih untuk selamanya",
-      "description": "Tahun ini, kami memilih untuk melanjutkan perjalanan sebagai pasangan hidup. Dari pertemuan di sebuah kedai kopi, kini kami bersiap membangun rumah dan cerita bersama, dengan cinta serta doa orang-orang terkasih."
+      "title": "Memilih untuk bersama",
+      "description": "Setelah saling mengenal, kami memutuskan untuk menikah. Tahun ini, kami mempersiapkan langkah tersebut bersama keluarga."
     }
   ],
   "copy": {
