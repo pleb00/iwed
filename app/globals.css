@@ -37,63 +37,49 @@ footer {
   background-repeat: repeat, no-repeat;
 }
 
-/* Sparse floral sprigs sit behind the content, along alternating edges. */
-.couple-section,
-.events-section,
-.location-section {
+/* Paired botanical borders keep decoration at the edges of the invitation. */
+.hero, .quote-band, .couple-section, .events-section,
+.story-section, .location-section, .gift-section, footer {
   position: relative;
   isolation: isolate;
+  overflow: clip;
 }
-
-.couple-section::before,
-.events-section::before,
-.location-section::before {
+:is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::before,
+:is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::after {
   content: '';
   position: absolute;
   z-index: -1;
-  width: clamp(110px, 16vw, 205px);
-  height: 340px;
+  width: clamp(145px, 19vw, 260px);
+  height: clamp(260px, 32vw, 430px);
   background: url('../public/textures/botanical-sprig.svg') center / contain no-repeat;
-  opacity: .3;
+  opacity: .34;
   pointer-events: none;
 }
-
-.couple-section::before {
-  top: 35px;
-  left: 0;
-  transform: rotate(-12deg);
-  transform-origin: bottom center;
+:is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::before {
+  left: -45px;
+  top: 18px;
+  transform: rotate(16deg);
 }
-
-.events-section::before {
-  right: 0;
-  bottom: 25px;
-  transform: scaleX(-1);
-  opacity: .24;
+:is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::after {
+  right: -45px;
+  bottom: 8px;
+  transform: scaleX(-1) rotate(12deg);
 }
-
-.location-section::before {
-  top: 0;
-  right: 0;
-  height: 240px;
-  transform: scaleX(-1);
-  opacity: .22;
-}
-
+.hero::before { top: auto; bottom: -35px; }
+.hero::after { top: -45px; bottom: auto; transform: rotate(185deg); }
+:is(.quote-band, footer)::before,
+:is(.quote-band, footer)::after { opacity: .27; filter: brightness(1.8) saturate(.55); }
+.story-section::before { top: auto; bottom: -70px; opacity: .22; }
+.story-section::after { top: -90px; bottom: auto; opacity: .22; }
 @media (max-width: 760px) {
-  .couple-section::before,
-  .events-section::before,
-  .location-section::before {
-    width: 90px;
-    height: 195px;
-    opacity: .18;
-    transform: none;
+  :is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::before,
+  :is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::after {
+    width: 130px;
+    height: 240px;
+    opacity: .23;
   }
-
-  .events-section::before,
-  .location-section::before {
-    transform: scaleX(-1);
-  }
+  :is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::before { left: -48px; }
+  :is(.hero, .quote-band, .couple-section, .events-section, .story-section, .location-section, .gift-section, footer)::after { right: -48px; }
 }
 
 .gift-section { border-top: 1px solid var(--line); }
@@ -122,13 +108,15 @@ footer {
 .person-photo { object-fit:cover; object-position:center 35%; }
 .couple-grid { max-width:760px; gap:110px; }
 .couple-amp { top:155px; }
-.story-photo { margin:30px 0 0; padding:9px; border:1px solid var(--line); background:#fffaf3; transform:rotate(-2deg); }
+.story-photo { margin:30px 0 0; padding:9px; border:1px solid var(--line); background:#fffaf3; }
+.together-photo { max-width:420px; margin:36px auto 0; padding:9px; border:1px solid var(--line); background:#fffaf3; }
+.together-photo img { display:block; width:100%; height:auto; }
 .story-photo img { display:block; width:100%; height:auto; }
 .story-photo figcaption { text-align:center; font:italic 20px var(--serif); padding:14px 0 6px; color:#536b89; }
 footer { color:#f8f3ec; }
 footer > svg { color:#d0b78f; }
 footer > span, footer > a { color:#d6deea; }
-.couple-section::before, .events-section::before, .location-section::before { filter:saturate(.3); opacity:.16; }
+
 @media(max-width:760px) {
  .hero-inner { grid-template-columns:1fr; gap:32px; }
  .hero-art { height:465px; max-width:310px; }
