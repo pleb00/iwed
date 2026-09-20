@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import couplePhoto from "@/public/photos/couple.webp";
+import bridePhoto from "@/public/photos/bride.webp";
+import groomPhoto from "@/public/photos/groom.webp";
+import storyPhoto from "@/public/photos/story.webp";
+import bcaLogo from "@/public/banks/bca.png";
+import bniLogo from "@/public/banks/bni.png";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -15,31 +22,6 @@ import {
   Flower2,
 } from "lucide-react";
 import data from "@/data/wedding.json";
-
-function Botanical({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={`botanical ${className}`}
-      viewBox="0 0 300 480"
-      fill="none"
-      aria-hidden="true"
-    >
-      <g stroke="currentColor" strokeWidth="1.1">
-        <path d="M151 470C111 358 211 242 143 28M148 427C84 384 60 318 44 266M151 364C224 326 241 270 255 217M153 290C92 258 75 199 75 147M164 220C203 180 214 129 214 91M155 150C116 118 109 78 111 48" />
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <g
-            key={i}
-            transform={`translate(${i % 2 ? 165 : 93} ${55 + i * 58}) rotate(${i % 2 ? 30 : -45})`}
-          >
-            <path d="M0 40C-28 13-21-17 0-35C21-17 28 13 0 40Z" />
-            <path d="M0 39V-31M0 13L-12-3M0 0L11-14" />
-          </g>
-        ))}
-        <path d="M44 266C9 255 5 223 17 198C43 204 55 232 44 266ZM255 217C240 186 254 160 280 151C291 180 280 205 255 217ZM75 147C41 136 37 109 48 86C72 93 87 119 75 147ZM214 91C200 64 208 39 231 27C244 51 235 78 214 91ZM143 28C126 12 137-5 151-15C165 3 159 21 143 28Z" />
-      </g>
-    </svg>
-  );
-}
 
 const dateText = (value: string) =>
   new Intl.DateTimeFormat("id-ID", {
@@ -196,31 +178,7 @@ export default function Invitation() {
             <div className="hero-art">
               <div className="arch-border" />
               <div className="arch">
-                <Botanical className="branch-left" />
-                <Botanical className="branch-right" />
-                <div className="arch-content">
-                  <span>
-                    TOGETHER IS A<br />
-                    BEAUTIFUL PLACE TO BE
-                  </span>
-                  <div className="art-monogram">
-                    {data.couple.bride.name[0]}
-                    <em>&</em>
-                    {data.couple.groom.name[0]}
-                  </div>
-                  <div className="art-rule" />
-                  <p>the beginning of forever</p>
-                  <span className="art-date">
-                    {new Intl.DateTimeFormat("en-GB", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                      timeZone: data.timeZone,
-                    })
-                      .format(new Date(data.date))
-                      .replaceAll("/", " . ")}
-                  </span>
-                </div>
+                <Image src={couplePhoto} alt="Dewi dan Nuriel dalam busana adat bernuansa biru navy" fill preload placeholder="blur" sizes="(max-width: 760px) 310px, 460px" className="hero-photo" />
               </div>
               <div className="seal">
                 <Heart size={20} strokeWidth={1} />
@@ -249,9 +207,7 @@ export default function Invitation() {
             {[data.couple.bride, data.couple.groom].map((person, index) => (
               <article className="person" key={person.name}>
                 <div className="portrait">
-                  <Botanical />
-                  <span>{person.name[0]}</span>
-                  <small>{index === 0 ? "THE BRIDE" : "THE GROOM"}</small>
+                  <Image src={index === 0 ? bridePhoto : groomPhoto} alt={person.name} fill placeholder="blur" sizes="(max-width: 760px) 220px, 260px" className="person-photo" />
                 </div>
                 <h3>{person.fullName}</h3>
                 <p>{person.familyLabel}</p>
@@ -313,12 +269,10 @@ export default function Invitation() {
           <div className="story-heading">
             <span className="eyebrow">EVERY LOVE HAS A STORY</span>
             <h2>This is ours.</h2>
-            <p>
-              Langkah kecil yang membawa kami
-              <br />
-              menuju satu tujuan: bersama.
-            </p>
-            <Botanical />
+            <figure className="story-photo">
+              <Image src={storyPhoto} alt="Dewi dan Nuriel saling menggenggam tangan" placeholder="blur" sizes="(max-width: 760px) 90vw, 420px" />
+              <figcaption></figcaption>
+            </figure>
           </div>
           <div className="timeline">
             {data.story.map((item) => (
@@ -364,6 +318,35 @@ export default function Invitation() {
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
+          </div>
+        </section>
+        <section className="section gift-section" aria-labelledby="gift-heading">
+          <span className="eyebrow">TANDA KASIH</span>
+          <h2 id="gift-heading">Wedding gift</h2>
+          <p className="section-intro">
+            Doa restu Anda adalah hadiah terindah. Bagi yang ingin berbagi tanda
+            kasih, berikut informasi rekening kami.
+          </p>
+          <div className="gift-grid">
+            {data.gifts.map((account) => (
+              <article className="gift-card" key={account.bank}>
+                <h3 className="bank-logo">
+                  <Image
+                    src={account.bank === "BCA" ? bcaLogo : bniLogo}
+                    alt={account.bank}
+                    sizes="120px"
+                  />
+                </h3>
+                <dl>
+                  <dt>Nomor rekening</dt>
+                  <dd className="account-number">
+                    {account.accountNumber || "Akan diinformasikan"}
+                  </dd>
+                  <dt>Atas nama</dt>
+                  <dd>{account.accountHolder || "Akan diinformasikan"}</dd>
+                </dl>
+              </article>
+            ))}
           </div>
         </section>
         <footer>
