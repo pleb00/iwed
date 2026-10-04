@@ -33,7 +33,24 @@ The deployable files are generated in `out/`. Normal `npm.cmd run dev` and `npm.
 
 All sample wedding content is in `data/wedding.json`: couple names and parents, guest fallback, date, time zone, akad/resepsi start and end times, venue, full address, map query, story years and descriptions, and invitation copy. Names, initials, page title, countdown, dates, and calendar downloads derive from this data. Keep ISO timestamps with an explicit UTC offset and update `timeZone` and `timeZoneLabel` consistently.
 
-Personalize the greeting with `/?kpd=Bapak%20Budi`. React safely renders the guest name as text.
+### Personalized guest links
+
+Edit `data/guests.json` to list your guests. The included John/Jane entries are examples; replace them with your actual guests:
+
+```json
+[
+  { "slug": "john-doe", "name": "John Doe", "partySize": 2 },
+  { "slug": "jane-doe", "name": "Jane Doe", "partySize": 1 }
+]
+```
+
+Share `https://your-domain.com/john-doe/` for John or `/jane-doe/` for Jane. On GitHub Pages with a repository base path, include it: `https://your-account.github.io/iwed/john-doe/`. Each page displays the guest's name. The `partySize` is kept in the guest list for planning (including the named guest) and is not displayed on the invitation.
+
+Slugs must be unique, lowercase letters/numbers separated by hyphens. Names must not be empty, and `partySize` must be a positive integer. Invalid entries fail the build. Guests with the same name can use different slugs such as `john-doe-1` and `john-doe-2`.
+
+Guest pages are generated at build time, so rebuild and redeploy after editing the list. Unknown slugs return 404. The main `/` page keeps the generic greeting and still supports the legacy `/?kpd=Bapak%20Budi` greeting; query parameters cannot override a named guest page.
+
+These are shareable personalized invitations, not authenticated access or RSVP enforcement. Anyone with a link can open it. The guest list stays out of the shared client JavaScript, but each generated guest page is public.
 
 The venue and address are fictional placeholders. The map currently shows the Menteng area; change `venue.mapQuery` to the real venue or coordinates and update the note when ready. The embedded Google map and external Google Maps link require no API key. Maps and Google Fonts need internet access; system font fallbacks are provided. Decorative illustrations are local SVG components, with no photo dependencies.
 
