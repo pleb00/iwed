@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import couplePhoto from "@/public/photos/couple.webp";
 import bridePhoto from "@/public/photos/bride.webp";
@@ -42,6 +42,9 @@ const timeText = (value: string) =>
 const names = `${data.couple.bride.name} & ${data.couple.groom.name}`;
 
 export default function Invitation({ recipient }: { recipient?: Guest }) {
+  const [opened, setOpened] = useState(false);
+  const [opening, setOpening] = useState(false);
+  const invitationHeading = useRef<HTMLHeadingElement>(null);
   const [guest, setGuest] = useState(data.guest);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [active, setActive] = useState("home");
@@ -52,6 +55,23 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
       new URLSearchParams(window.location.search).get("kpd")?.trim() ||
         data.guest,
     );
+  }, []);
+  useEffect(() => {
+    if (!opening) return;
+    const timer = window.setTimeout(() => setOpened(true), 500);
+    return () => window.clearTimeout(timer);
+  }, [opening]);
+  const openInvitation = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setOpened(true);
+    } else {
+      setOpening(true);
+    }
+  };
+  useEffect(() => {
+    if (!opened) return;
+    window.scrollTo({ top: 0, behavior: "instant" });
+    invitationHeading.current?.focus({ preventScroll: true });
     const update = () =>
       setRemaining(Math.max(0, new Date(data.date).getTime() - Date.now()));
     update();
@@ -71,7 +91,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
       clearInterval(timer);
       observer.disconnect();
     };
-  }, []);
+  }, [opened]);
   const countdown =
     remaining === null
       ? ["—", "—", "—", "—"]
@@ -128,8 +148,48 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
       setCopyError(true);
     }
   };
+  if (!opened) {
+    return (
+      <main
+        className={`invitation-cover${opening ? " is-opening" : ""}`}
+        aria-labelledby="cover-heading"
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget && opening) setOpened(true);
+        }}
+      >
+        <Image
+          src={couplePhoto}
+          alt=""
+          fill
+          preload
+          placeholder="blur"
+          sizes="100vw"
+          className="cover-photo"
+        />
+        <div className="cover-shade" aria-hidden="true" />
+        <div className="cover-content">
+          <span className="eyebrow">{data.copy.eyebrow}</span>
+          <h1 id="cover-heading">
+            {data.couple.bride.name}
+            <span className="cover-amp">&</span>
+            {data.couple.groom.name}
+          </h1>
+          <p className="cover-date">{dateText(data.date)}</p>
+          <div className="cover-rule" aria-hidden="true" />
+          <div className="cover-guest">
+            <span>Kepada Yth. Bapak/Ibu/Saudara/i</span>
+            <strong>{recipient?.name ?? guest}</strong>
+          </div>
+          <p className="cover-message">{data.copy.invitation}</p>
+          <button className="button cover-button" onClick={openInvitation} disabled={opening}>
+            <Mail size={16} /> Buka Undangan <ArrowUpRight size={15} />
+          </button>
+        </div>
+      </main>
+    );
+  }
   return (
-    <>
+    <div className="invitation-opened">
       <a className="skip-link" href="#couple">
         Lewati ke undangan
       </a>
@@ -157,7 +217,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
                 <span className="small-line" />
                 {data.copy.eyebrow}
               </span>
-              <h1>
+              <h1 ref={invitationHeading} tabIndex={-1}>
                 {data.couple.bride.name}
                 <span className="amp">&</span>
                 {data.couple.groom.name}
@@ -173,9 +233,6 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
                 <span>Kepada Yth.</span>
                 <strong>{recipient?.name ?? guest}</strong>
               </div>
-              <a className="button" href="#couple">
-                <Mail size={16} /> Buka Undangan <ArrowDown size={15} />
-              </a>
             </div>
             <div className="hero-art">
               <div className="arch-border" />
@@ -383,6 +440,6 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
           </a>
         ))}
       </nav>
-    </>
+    </div>
   );
 }
