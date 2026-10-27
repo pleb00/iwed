@@ -19,6 +19,11 @@
     { "bank": "BCA", "accountNumber": "8640369087", "accountHolder": "Nuriel Kaunaini Muhammad" },
     { "bank": "BNI", "accountNumber": "0858715898", "accountHolder": "Dewi Fuji Astuti" }
   ],
+  "music": {
+    "src": "/audio/last forever.mp3",
+    "volume": 0.35,
+    "startAt": 75
+  },
   "date": "2026-11-22T08:00:00+07:00",
   "timeZone": "Asia/Jakarta",
   "timeZoneLabel": "WIB",
