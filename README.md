@@ -73,6 +73,22 @@ Guest pages are generated at build time, so rebuild and redeploy after editing t
 
 These are shareable personalized invitations, not authenticated access or RSVP enforcement. Anyone with a link can open it. The guest list stays out of the shared client JavaScript, but each generated guest page is public.
 
+### Background music
+
+The player is ready for your chosen audio file. Add an MP3 you have permission to use at `public/audio/wedding.mp3`, then set `music.src` in `data/wedding.json` to `/audio/wedding.mp3`. Keep the path relative to `public`, starting with `/`; the GitHub Pages base path is added automatically. Rebuild and redeploy after adding or replacing the file. An empty `music.src` disables the player and makes no audio requests; no sample song is bundled.
+
+Music begins when the guest taps **Buka Undangan**, loops while they browse, and can be paused or resumed with the floating button. It downloads only when playback is requested. The control sits above the bottom navigation on mobile. If playback is blocked or the file fails to load, the invitation stays usable and the button lets guests retry. Set `music.volume` between `0` and `1` (default `0.35`); some mobile browsers use the device volume instead.
+
+Set `music.startAt` to the starting position in seconds, for example `131` for **2:11** (the current setting), or `0` to play from the beginning. The song starts there on opening and on every loop. Pausing and resuming keeps the current position. Negative values use `0`; a cue at or beyond the song's duration also falls back to the beginning. For example, after adding the file:
+
+```json
+"music": {
+  "src": "/audio/wedding.mp3",
+  "volume": 0.35,
+  "startAt": 131
+}
+```
+
 The venue and address are fictional placeholders. The map currently shows the Menteng area; change `venue.mapQuery` to the real venue or coordinates and update the note when ready. The embedded Google map and external Google Maps link require no API key. Maps and Google Fonts need internet access; system font fallbacks are provided. Decorative illustrations are local SVG components, with no photo dependencies.
 
 The calendar button downloads both events as an `.ics` file. Address copying uses the browser clipboard API (HTTPS or localhost), with manual-copy feedback if unavailable. Guest wishes use Supabase as described above; RSVP submission, payments, and tracking are not included.

@@ -26,6 +26,7 @@ import {
 import data from "@/data/wedding.json";
 import type { Guest } from "@/lib/guests";
 import GuestMessages from "./guest-messages";
+import BackgroundMusic, { type BackgroundMusicHandle } from "./background-music";
 
 const dateText = (value: string) =>
   new Intl.DateTimeFormat("id-ID", {
@@ -46,6 +47,7 @@ const names = `${data.couple.bride.name} & ${data.couple.groom.name}`;
 export default function Invitation({ recipient }: { recipient?: Guest }) {
   const [opened, setOpened] = useState(false);
   const [opening, setOpening] = useState(false);
+  const music = useRef<BackgroundMusicHandle>(null);
   const invitationHeading = useRef<HTMLHeadingElement>(null);
   const [guest, setGuest] = useState(data.guest);
   const [remaining, setRemaining] = useState<number | null>(null);
@@ -64,6 +66,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
     return () => window.clearTimeout(timer);
   }, [opening]);
   const openInvitation = () => {
+    music.current?.play();
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setOpened(true);
     } else {
@@ -150,47 +153,54 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
       setCopyError(true);
     }
   };
-  if (!opened) {
-    return (
-      <main
-        className={`invitation-cover${opening ? " is-opening" : ""}`}
-        aria-labelledby="cover-heading"
-        onAnimationEnd={(event) => {
-          if (event.target === event.currentTarget && opening) setOpened(true);
-        }}
-      >
-        <Image
-          src={couplePhoto}
-          alt=""
-          fill
-          preload
-          placeholder="blur"
-          sizes="100vw"
-          className="cover-photo"
-        />
-        <div className="cover-shade" aria-hidden="true" />
-        <div className="cover-content">
-          <span className="eyebrow">{data.copy.eyebrow}</span>
-          <h1 id="cover-heading">
-            {data.couple.bride.name}
-            <span className="cover-amp">&</span>
-            {data.couple.groom.name}
-          </h1>
-          <p className="cover-date">{dateText(data.date)}</p>
-          <div className="cover-rule" aria-hidden="true" />
-          <div className="cover-guest">
-            <span>Kepada Yth. Bapak/Ibu/Saudara/i</span>
-            <strong>{recipient?.name ?? guest}</strong>
-          </div>
-          <p className="cover-message">{data.copy.invitation}</p>
-          <button className="button cover-button" onClick={openInvitation} disabled={opening}>
-            <Mail size={16} /> Buka Undangan <ArrowUpRight size={15} />
-          </button>
+  // Keep the player mounted across the cover transition so playback continues.
+  const musicPlayer = (
+    <BackgroundMusic
+      ref={music}
+      src={data.music.src}
+      volume={data.music.volume}
+      startAt={data.music.startAt}
+      visible={opened}
+    />
+  );
+  const content = !opened ? (
+    <main
+      className={`invitation-cover${opening ? " is-opening" : ""}`}
+      aria-labelledby="cover-heading"
+      onAnimationEnd={(event) => {
+        if (event.target === event.currentTarget && opening) setOpened(true);
+      }}
+    >
+      <Image
+        src={couplePhoto}
+        alt=""
+        fill
+        preload
+        placeholder="blur"
+        sizes="100vw"
+        className="cover-photo"
+      />
+      <div className="cover-shade" aria-hidden="true" />
+      <div className="cover-content">
+        <span className="eyebrow">{data.copy.eyebrow}</span>
+        <h1 id="cover-heading">
+          {data.couple.bride.name}
+          <span className="cover-amp">&</span>
+          {data.couple.groom.name}
+        </h1>
+        <p className="cover-date">{dateText(data.date)}</p>
+        <div className="cover-rule" aria-hidden="true" />
+        <div className="cover-guest">
+          <span>Kepada Yth. Bapak/Ibu/Saudara/i</span>
+          <strong>{recipient?.name ?? guest}</strong>
         </div>
-      </main>
-    );
-  }
-  return (
+        <p className="cover-message">{data.copy.invitation}</p>
+        <button className="button cover-button" onClick={openInvitation} disabled={opening}>
+          <Mail size={16} /> Buka Undangan <ArrowUpRight size={15} />
+        </button>
+      </div>
+    </main>
+  ) : (
     <div className="invitation-opened">
       <a className="skip-link" href="#couple">
         Lewati ke undangan
@@ -449,5 +459,11 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
         ))}
       </nav>
     </div>
+  );
+  return (
+    <>
+      {musicPlayer}
+      {content}
+    </>
   );
 }
