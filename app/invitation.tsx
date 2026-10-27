@@ -21,9 +21,11 @@ import {
   BookOpen,
   Copy,
   Flower2,
+  MessageCircle,
 } from "lucide-react";
 import data from "@/data/wedding.json";
 import type { Guest } from "@/lib/guests";
+import GuestMessages from "./guest-messages";
 
 const dateText = (value: string) =>
   new Intl.DateTimeFormat("id-ID", {
@@ -204,6 +206,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
           <a href="#couple">Mempelai</a>
           <a href="#events">Acara</a>
           <a href="#story">Our Story</a>
+          <a href="#messages">Ucapan</a>
           <a className="nav-location" href="#location">
             Lokasi <ArrowUpRight size={13} />
           </a>
@@ -413,6 +416,10 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
             ))}
           </div>
         </section>
+        <GuestMessages
+          initialName={recipient?.name ?? (guest === data.guest ? "" : guest)}
+          timeZone={data.timeZone}
+        />
         <footer>
           <Flower2 size={30} strokeWidth={1} />
           <p>{data.copy.closing}</p>
@@ -428,6 +435,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
           { id: "events", label: "Acara", Icon: CalendarDays },
           { id: "story", label: "Cerita", Icon: BookOpen },
           { id: "location", label: "Lokasi", Icon: MapPin },
+          { id: "messages", label: "Ucapan", Icon: MessageCircle },
         ].map(({ id, label, Icon }) => (
           <a
             key={id}

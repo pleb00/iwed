@@ -6,6 +6,7 @@ A responsive Next.js App Router invitation with TypeScript, an ivory/olive botan
 
 ```sh
 npm install
+cp .env.example .env.local
 npm run dev
 ```
 
@@ -28,6 +29,26 @@ Remove-Item Env:PAGES_BASE_PATH
 ```
 
 The deployable files are generated in `out/`. Normal `npm.cmd run dev` and `npm.cmd start` still use Next.js when these variables are unset.
+
+Guest messages work on GitHub Pages: the browser reads and writes directly to Supabase. The workflow includes this invitation's public Supabase URL and publishable key. To use another project, set the repository Actions variables `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, then rebuild. These values are public browser configuration, as described in [Supabase's API key guide](https://supabase.com/docs/guides/getting-started/api-keys); never use a secret key, service-role key, or database password in them.
+
+## Guest messages
+
+The bottom of the invitation includes name and message fields and a public list of wishes. Personalized invitation links prefill the guest's name, which remains editable. Names are limited to 80 characters and messages to 1000 characters. The browser trims and validates both fields, and Postgres also enforces nonblank text and length limits. Supabase assigns IDs and timestamps and persists submissions independently of the website host. Messages appear newest first, with 20 per page and a button to load older wishes. Failed requests show retry feedback and preserve the message draft.
+
+Copy `.env.example` to `.env.local` for local development (`Copy-Item .env.example .env.local` in PowerShell). The example already contains this project's public configuration. Environment files are ignored by Git except `.env.example`. Only the URL and publishable key are needed by the app; database credentials are never sent to guests. Next.js embeds these public variables at build time, so rebuild after changing projects.
+
+The Supabase CLI is installed as a development dependency. To connect a fresh checkout and apply pending migrations:
+
+```sh
+npx supabase login
+npx supabase link --project-ref lwppzttwyhajtrmhozgg
+npx supabase db push --linked
+```
+
+`supabase/` is already initialized. The migration in `supabase/migrations/` creates `public.guest_messages`, the sorting index, and Row Level Security policies. Signed-out and signed-in guests may read wishes and insert only `name` and `message`; they cannot edit, delete, truncate, or supply IDs/timestamps. Manage or remove messages as the project owner in the Supabase Dashboard's Table Editor. All wishes and guest names are public.
+
+Run `npm run test:messages` for client validation, Supabase requests, pagination, and error-handling tests; these mock the network and do not modify the live guestbook. `npm run test:db` runs 30 database assertions against the linked project inside a rolled-back transaction (requires Docker for Supabase's pgTAP runner). Without Docker, `npx supabase db query --linked --file supabase/tests/guest_messages.test.sql` executes the same assertions through the Management API; a successful result ends with `1..30` and no failure diagnostics. Neither database test method leaves test wishes behind.
 
 ## Invitation content
 
@@ -54,4 +75,4 @@ These are shareable personalized invitations, not authenticated access or RSVP e
 
 The venue and address are fictional placeholders. The map currently shows the Menteng area; change `venue.mapQuery` to the real venue or coordinates and update the note when ready. The embedded Google map and external Google Maps link require no API key. Maps and Google Fonts need internet access; system font fallbacks are provided. Decorative illustrations are local SVG components, with no photo dependencies.
 
-The calendar button downloads both events as an `.ics` file. Address copying uses the browser clipboard API (HTTPS or localhost), with manual-copy feedback if unavailable. No RSVP submission, payments, tracking, or backend storage is included.
+The calendar button downloads both events as an `.ics` file. Address copying uses the browser clipboard API (HTTPS or localhost), with manual-copy feedback if unavailable. Guest wishes use Supabase as described above; RSVP submission, payments, and tracking are not included.
