@@ -10,7 +10,7 @@
   { "slug": "adriel", "name": "Kang Adriel", "partySize": 1 },
   { "slug": "nabol", "name": "Nabil", "partySize": 1 },
   { "slug": "nadeem", "name": "Nadeem K.", "partySize": 1 },
-  { "slug": "kaka", "name": "Kaka", "partySize": 1 },
+  { "slug": "kaka", "name": "Kaka", "partySize": 2 },
   { "slug": "pasya", "name": "Pasya", "partySize": 1 },
   { "slug": "esby", "name": "Salsabila & Partner", "partySize": 2 },
   { "slug": "fari", "name": "Ghiffari", "partySize": 1 },
@@ -19,7 +19,6 @@
   { "slug": "andi", "name": "Andi & Partner", "partySize": 2 },
   { "slug": "ardi", "name": "Ardi & Partner", "partySize": 2 },
   { "slug": "raul", "name": "Raul", "partySize": 1 },
-  { "slug": "hanif", "name": "Hanif & Partner", "partySize": 2 },
   { "slug": "yung-metro", "name": "Delwyn", "partySize": 1 },
   { "slug": "jiyan", "name": "Nauval & Partner", "partySize": 2 },
   { "slug": "ricoco", "name": "Richard & Partner", "partySize": 2 },
@@ -27,5 +26,6 @@
   { "slug": "pras", "name": "Prasetyo & Partner", "partySize": 2 },
   { "slug": "alif", "name": "Alif", "partySize": 1 },
   { "slug": "pak-malik", "name": "Maulana & Partner", "partySize": 2 },
-  { "slug": "riyan", "name": "Riyan & Partner", "partySize": 2 }
+  { "slug": "riyan", "name": "Riyan & Partner", "partySize": 2 },
+  { "slug": "anies-baswedan", "name": "Anies Baswedan & Partner", "partySize": 2 }
 ]
