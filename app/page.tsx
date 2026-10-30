@@ -1,5 +1,5 @@
-import Invitation from "./invitation";
+import { notFound } from "next/navigation";
 
 export default function HomePage() {
-  return <Invitation />;
+  notFound();
 }

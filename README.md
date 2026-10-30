@@ -10,7 +10,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
+Open a guest link such as http://localhost:3000/yoga/. The home page and unknown slugs show a 404 page. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
 
 ## Customize
 
@@ -69,9 +69,9 @@ Share `https://your-domain.com/john-doe/` for John or `/jane-doe/` for Jane. On 
 
 Slugs must be unique, lowercase letters/numbers separated by hyphens. Names must not be empty, and `partySize` must be a positive integer. Invalid entries fail the build. Guests with the same name can use different slugs such as `john-doe-1` and `john-doe-2`.
 
-Guest pages are generated at build time, so rebuild and redeploy after editing the list. Unknown slugs return 404. The main `/` page keeps the generic greeting and still supports the legacy `/?kpd=Bapak%20Budi` greeting; query parameters cannot override a named guest page.
+Guest pages are generated at build time, so rebuild and redeploy after editing the list. Only slugs in `data/guests.json` open an invitation. The main `/` page, including legacy `/?kpd=...` links, and unknown slugs show a 404 page without rendering the invitation. Query parameters cannot grant access or override a named guest page. The invitation component requires a recipient and has no generic greeting fallback.
 
-These are shareable personalized invitations, not authenticated access or RSVP enforcement. Anyone with a link can open it. The guest list stays out of the shared client JavaScript, but each generated guest page is public.
+Access is based on knowing a valid guest link, not authentication or RSVP enforcement: anyone with a valid link can open and share it. Pages request `noindex, nofollow` from search engines, and the browser's referrer policy is `no-referrer`. The guest list stays out of the shared client JavaScript. Static assets and the Supabase guestbook remain public; use server-side authentication if those also need restricted access.
 
 ### Background music
 

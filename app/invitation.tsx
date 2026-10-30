@@ -44,22 +44,15 @@ const timeText = (value: string) =>
   }).format(new Date(value));
 const names = `${data.couple.bride.name} & ${data.couple.groom.name}`;
 
-export default function Invitation({ recipient }: { recipient?: Guest }) {
+export default function Invitation({ recipient }: { recipient: Guest }) {
   const [opened, setOpened] = useState(false);
   const [opening, setOpening] = useState(false);
   const music = useRef<BackgroundMusicHandle>(null);
   const invitationHeading = useRef<HTMLHeadingElement>(null);
-  const [guest, setGuest] = useState(data.guest);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [active, setActive] = useState("home");
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
-  useEffect(() => {
-    setGuest(
-      new URLSearchParams(window.location.search).get("kpd")?.trim() ||
-        data.guest,
-    );
-  }, []);
   useEffect(() => {
     if (!opening) return;
     const timer = window.setTimeout(() => setOpened(true), 500);
@@ -192,7 +185,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
         <div className="cover-rule" aria-hidden="true" />
         <div className="cover-guest">
           <span>Kepada Yth. Bapak/Ibu/Saudara/i</span>
-          <strong>{recipient?.name ?? guest}</strong>
+          <strong>{recipient.name}</strong>
         </div>
         <p className="cover-message">{data.copy.invitation}</p>
         <button className="button cover-button" onClick={openInvitation} disabled={opening}>
@@ -244,7 +237,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
               <p className="invitation-copy">{data.copy.invitation}</p>
               <div className="guest">
                 <span>Kepada Yth.</span>
-                <strong>{recipient?.name ?? guest}</strong>
+                <strong>{recipient.name}</strong>
               </div>
             </div>
             <div className="hero-art">
@@ -427,7 +420,7 @@ export default function Invitation({ recipient }: { recipient?: Guest }) {
           </div>
         </section>
         <GuestMessages
-          initialName={recipient?.name ?? (guest === data.guest ? "" : guest)}
+          initialName={recipient.name}
           timeZone={data.timeZone}
         />
         <footer>

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Invitation from "../invitation";
 import { guests } from "@/lib/guests";
+import wedding from "@/data/wedding.json";
+
+export const metadata: Metadata = {
+  title: `${wedding.couple.bride.name} & ${wedding.couple.groom.name} — The Wedding`,
+  description: wedding.copy.invitation,
+};
 
 export const dynamicParams = false;
 
