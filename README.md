@@ -10,13 +10,13 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open a guest link such as http://localhost:3000/yoga/. The home page and unknown slugs show a 404 page. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
+Open a guest link such as http://localhost:3000/iwed/adam-gray. The home page, links without the `/iwed` prefix, and unknown slugs show a 404 page. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
 
 ## Customize
 
 ## GitHub Pages deployment
 
-The workflow in `.github/workflows/deploy.yml` builds and deploys on pushes to `main`. In the GitHub repository, select **Settings → Pages → Source → GitHub Actions** before the first run. The workflow derives the URL base path from GitHub Pages, so scripts and styles work under a repository URL such as `/iwed/`.
+The workflow in `.github/workflows/deploy.yml` builds and deploys on pushes to `main`. In the GitHub repository, select **Settings → Pages → Source → GitHub Actions** before the first run. The app defaults to the `/iwed` URL prefix in development and normal production builds. For GitHub Pages, the workflow uses the hosting base path reported by Pages (normally `/iwed` for this repository) for routes, scripts, styles, and music. This prefix is applied once, so guest links stay `/iwed/adam-gray/`. A different repository or a custom domain uses its own Pages hosting base path.
 
 To check the Pages export locally in PowerShell:
 
@@ -65,11 +65,11 @@ Edit `data/guests.json` to list your guests. The included John/Jane entries are 
 ]
 ```
 
-Share `https://your-domain.com/john-doe/` for John or `/jane-doe/` for Jane. On GitHub Pages with a repository base path, include it: `https://your-account.github.io/iwed/john-doe/`. Each page displays the guest's name. The `partySize` is kept in the guest list for planning (including the named guest) and is not displayed on the invitation.
+Share `https://your-domain.com/iwed/john-doe/` for John or `/iwed/jane-doe/` for Jane. On this repository's GitHub Pages deployment, the link has the same prefix: `https://your-account.github.io/iwed/john-doe/`. Each page displays the guest's name. The `partySize` is kept in the guest list for planning (including the named guest) and is not displayed on the invitation.
 
 Slugs must be unique, lowercase letters/numbers separated by hyphens. Names must not be empty, and `partySize` must be a positive integer. Invalid entries fail the build. Guests with the same name can use different slugs such as `john-doe-1` and `john-doe-2`.
 
-Guest pages are generated at build time, so rebuild and redeploy after editing the list. Only slugs in `data/guests.json` open an invitation. The main `/` page, including legacy `/?kpd=...` links, and unknown slugs show a 404 page without rendering the invitation. Query parameters cannot grant access or override a named guest page. The invitation component requires a recipient and has no generic greeting fallback.
+Guest pages are generated at build time, so rebuild and redeploy after editing the list. Only slugs in `data/guests.json`, under the URL prefix, open an invitation. The `/` and `/iwed/` pages, legacy `?kpd=...` links without a valid guest path, bare `/adam-gray` links, and unknown slugs show a 404 page without rendering the invitation. Query parameters cannot grant access or override a named guest page. The invitation component requires a recipient and has no generic greeting fallback.
 
 Access is based on knowing a valid guest link, not authentication or RSVP enforcement: anyone with a valid link can open and share it. Pages request `noindex, nofollow` from search engines, and the browser's referrer policy is `no-referrer`. The guest list stays out of the shared client JavaScript. Static assets and the Supabase guestbook remain public; use server-side authentication if those also need restricted access.
 
