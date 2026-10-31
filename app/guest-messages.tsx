@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { MessageCircle, Send } from "lucide-react";
 import {
   MAX_GUEST_MESSAGE_LENGTH,
-  MAX_GUEST_NAME_LENGTH,
   validateGuestMessage,
   type GuestMessage,
 } from "@/lib/guest-messages";
@@ -15,13 +14,12 @@ import {
 } from "@/lib/guest-message-store";
 
 export default function GuestMessages({
-  initialName,
+  senderName,
   timeZone,
 }: {
-  initialName: string;
+  senderName: string;
   timeZone: string;
 }) {
-  const [name, setName] = useState(initialName);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<GuestMessage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,10 +58,10 @@ export default function GuestMessages({
     event.preventDefault();
     if (submitting.current || loading || loadError) return;
 
-    const input = validateGuestMessage({ name, message });
+    const input = validateGuestMessage({ name: senderName, message });
     if (!input) {
       setSubmitError(true);
-      setFeedback("Silakan isi nama dan ucapan Anda sesuai batas karakter.");
+      setFeedback("Silakan isi ucapan Anda sesuai batas karakter.");
       return;
     }
 
@@ -75,7 +73,6 @@ export default function GuestMessages({
       const savedMessage = await saveGuestMessage(input);
       setMessages((current) => [savedMessage, ...current]);
       setMessage("");
-      setName(input.name);
       setFeedback("Terima kasih! Ucapan Anda sudah tersimpan.");
     } catch (error) {
       setSubmitError(true);
@@ -126,18 +123,18 @@ export default function GuestMessages({
       </p>
       <div className="guestbook">
         <form className="message-form" onSubmit={submit} aria-busy={sending}>
-          <label htmlFor="message-name">Nama Anda</label>
+          <label htmlFor="message-name">Nama pengirim</label>
           <input
             id="message-name"
             name="name"
-            autoComplete="name"
-            placeholder="Tulis nama Anda"
-            required
-            maxLength={MAX_GUEST_NAME_LENGTH}
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            disabled={sending}
+            autoComplete="off"
+            readOnly
+            value={senderName}
+            aria-describedby="message-sender-note"
           />
+          <p id="message-sender-note" className="message-note">
+            Nama pengirim mengikuti nama pada undangan Anda dan tidak dapat diubah.
+          </p>
           <div className="message-label">
             <label htmlFor="message-text">Ucapan & doa</label>
             <span id="message-limit">{message.length}/{MAX_GUEST_MESSAGE_LENGTH}</span>

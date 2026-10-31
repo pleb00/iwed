@@ -420,7 +420,7 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
           </div>
         </section>
         <GuestMessages
-          initialName={recipient.name}
+          senderName={recipient.name}
           timeZone={data.timeZone}
         />
         <footer>
