@@ -10,7 +10,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open a guest link such as http://localhost:3000/iwed/adam-gray. The home page, links without the `/iwed` prefix, and unknown slugs show a 404 page. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
+Open a guest link. The home page, links without the `/iwed` prefix, and unknown slugs show a 404 page. Use `npm run build` for a production build and `npm start` to serve it. `npm run typecheck` checks TypeScript.
 
 ## Customize
 
