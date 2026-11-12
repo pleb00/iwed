@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import coverPhoto from "@/public/photos/cover.jpeg";
 import couplePhoto from "@/public/photos/couple.webp";
 import bridePhoto from "@/public/photos/bride.webp";
 import groomPhoto from "@/public/photos/groom.webp";
@@ -165,7 +166,7 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
       }}
     >
       <Image
-        src={couplePhoto}
+        src={coverPhoto}
         alt=""
         fill
         preload
