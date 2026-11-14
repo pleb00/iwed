@@ -66,6 +66,22 @@
       "description": "Setelah saling mengenal, kami memutuskan untuk menikah. Tahun ini, kami mempersiapkan langkah tersebut bersama keluarga."
     }
   ],
+  "story_text_1": [
+    {
+      "desc": "Setiap hubungan memiliki proses dan ceritanya masing-masing. Begitu pula dengan kami, yang berawal dari saling mengenal, kemudian belajar memahami, berbagi cerita, dan melewati berbagai hal bersama."
+    },
+    {
+      "desc": "Kami percaya bahwa sebuah hubungan tidak harus selalu berjalan sempurna. Ada banyak cerita, tawa, perbedaan, dan hal-hal baru yang kami pelajari satu sama lain. Dari setiap proses tersebut, kami semakin mengenal, memahami, dan meyakinkan diri bahwa kami ingin terus berjalan bersama."
+    }
+  ],
+  "story_text_2": [
+    {
+      "desc": "Hingga akhirnya, kami sampai pada satu keputusan untuk membawa hubungan ini ke jenjang yang lebih serius. Dengan segala harapan dan doa baik, kami memilih untuk mengikat janji dalam sebuah pernikahan pada 22 November 2026."
+    },
+    {
+      "desc": "Ini bukan akhir dari perjalanan cinta kami, melainkan awal dari cerita baru yang akan kami bangun bersama."
+    }
+  ],
   "copy": {
     "eyebrow": "THE WEDDING OF",
     "tagline": "",
