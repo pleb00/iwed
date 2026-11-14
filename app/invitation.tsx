@@ -6,8 +6,9 @@ import coverPhoto from "@/public/photos/cover.jpeg";
 import couplePhoto from "@/public/photos/couple.webp";
 import bridePhoto from "@/public/photos/bride.webp";
 import groomPhoto from "@/public/photos/groom.webp";
-import storyPhoto from "@/public/photos/story.webp";
-import togetherPhoto from "@/public/photos/together.webp";
+import storyPhoto1 from "@/public/photos/together2.webp";
+import storyPhoto2 from "@/public/photos/story.webp";
+// import togetherPhoto from "@/public/photos/together.webp";
 import bcaLogo from "@/public/banks/bca.png";
 import bniLogo from "@/public/banks/bni.png";
 import {
@@ -15,6 +16,7 @@ import {
   ArrowUpRight,
   CalendarDays,
   Check,
+  ChevronDown,
   Heart,
   Home,
   Mail,
@@ -54,6 +56,7 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
   const [active, setActive] = useState("home");
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const [giftsVisible, setGiftsVisible] = useState(false);
   useEffect(() => {
     if (!opening) return;
     const timer = window.setTimeout(() => setOpened(true), 500);
@@ -95,11 +98,11 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
     remaining === null
       ? ["—", "—", "—", "—"]
       : [
-          Math.floor(remaining / 86400000),
-          Math.floor(remaining / 3600000) % 24,
-          Math.floor(remaining / 60000) % 60,
-          Math.floor(remaining / 1000) % 60,
-        ].map((n) => String(n).padStart(2, "0"));
+        Math.floor(remaining / 86400000),
+        Math.floor(remaining / 3600000) % 24,
+        Math.floor(remaining / 60000) % 60,
+        Math.floor(remaining / 1000) % 60,
+      ].map((n) => String(n).padStart(2, "0"));
   const calendar = () => {
     const escape = (s: string) =>
       s
@@ -266,14 +269,14 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
           <h2>Meet the happy couple</h2>
           <p className="greeting">{data.copy.greeting}</p>
           <p className="section-intro">{data.copy.intro}</p>
-          <figure className="together-photo">
+          {/* <figure className="together-photo">
             <Image
               src={togetherPhoto}
               alt="Dewi dan Nuriel berpose bersama dalam busana adat"
               placeholder="blur"
               sizes="(max-width: 760px) 85vw, 420px"
             />
-          </figure>
+          </figure> */}
           <div className="couple-grid">
             {[data.couple.bride, data.couple.groom].map((person, index) => (
               <article className="person" key={person.name}>
@@ -336,23 +339,40 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
             <ArrowUpRight size={14} />
           </button>
         </section>
-        <section id="story" className="section story-section">
-          <div className="story-heading">
+        <section id="story" className="section story-section" aria-labelledby="story-heading">
+          <header className="story-header">
             <span className="eyebrow">EVERY LOVE HAS A STORY</span>
-            <h2>This is ours.</h2>
+            <h2 id="story-heading">This is ours.</h2>
+          </header>
+          <div className="story-chapter">
             <figure className="story-photo">
-              <Image src={storyPhoto} alt="Dewi dan Nuriel saling berhadapan dengan kain biru di depan mereka" placeholder="blur" sizes="(max-width: 760px) 90vw, 420px" />
-              <figcaption></figcaption>
+              <Image
+                src={storyPhoto1}
+                alt="Dewi dan Nuriel berpose bersama dalam busana adat bernuansa biru navy"
+                placeholder="blur"
+                sizes="(max-width: 410px) calc(100vw - 68px), 340px"
+              />
             </figure>
+            <div className="story-copy">
+              {data.story_text_1.map((item) => (
+                <p key={item.desc}>{item.desc}</p>
+              ))}
+            </div>
           </div>
-          <div className="timeline">
-            {data.story.map((item) => (
-              <article key={item.year}>
-                <span className="year">{item.year}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </article>
-            ))}
+          <div className="story-chapter story-chapter--reverse">
+            <figure className="story-photo">
+              <Image
+                src={storyPhoto2}
+                alt="Dewi dan Nuriel saling berhadapan dengan kain biru di depan mereka"
+                placeholder="blur"
+                sizes="(max-width: 410px) calc(100vw - 68px), 340px"
+              />
+            </figure>
+            <div className="story-copy">
+              {data.story_text_2.map((item) => (
+                <p key={item.desc}>{item.desc}</p>
+              ))}
+            </div>
           </div>
         </section>
         <section id="location" className="section location-section">
@@ -393,12 +413,20 @@ export default function Invitation({ recipient }: { recipient: Guest }) {
         </section>
         <section className="section gift-section" aria-labelledby="gift-heading">
           <span className="eyebrow">TANDA KASIH</span>
-          <h2 id="gift-heading">Wedding gift</h2>
+          <h2 id="gift-heading">Wedding Gift</h2>
           <p className="section-intro">
-            Doa restu Anda adalah hadiah terindah. Bagi yang ingin berbagi tanda
-            kasih, berikut informasi rekening kami.
+            Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih untuk kami, dapat melalui:
           </p>
-          <div className="gift-grid">
+          <button
+            type="button"
+            className="button gift-toggle"
+            aria-expanded={giftsVisible}
+            aria-controls="gift-accounts"
+            onClick={() => setGiftsVisible((visible) => !visible)}
+          >
+            Gift Address <ChevronDown size={16} aria-hidden="true" />
+          </button>
+          <div id="gift-accounts" className="gift-grid" hidden={!giftsVisible}>
             {data.gifts.map((account) => (
               <article className="gift-card" key={account.bank}>
                 <h3 className="bank-logo">
