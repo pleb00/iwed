@@ -48,7 +48,7 @@ export default function BackgroundMusic({
 
   const play = async () => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || document.hidden) return;
 
     setFeedback("");
     try {
@@ -76,7 +76,19 @@ export default function BackgroundMusic({
 
   useEffect(() => {
     const audio = audioRef.current;
-    return () => audio?.pause();
+    const pause = () => audio?.pause();
+    const handleVisibilityChange = () => {
+      if (document.hidden) pause();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", pause);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pagehide", pause);
+      pause();
+    };
   }, []);
 
   if (!source) return null;
@@ -91,7 +103,14 @@ export default function BackgroundMusic({
           // Seeking after metadata arrives also works when play() starts a fresh download.
           if (!cueApplied.current) applyStartingPoint(event.currentTarget);
         }}
-        onPlay={() => setPlaying(true)}
+        onPlay={(event) => {
+          // Also block playback started from the browser's media controls while hidden.
+          if (document.hidden) {
+            event.currentTarget.pause();
+            return;
+          }
+          setPlaying(true);
+        }}
         onPlaying={() => setFeedback("")}
         onPause={() => setPlaying(false)}
         onEnded={() => {
