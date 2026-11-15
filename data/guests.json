@@ -92,5 +92,6 @@
   {"slug":"chae","name":"Chae & Suami","partySize":2},
   {"slug":"ka-dian","name":"Ka Dian & Suami","partySize":2},
   {"slug":"ka-muti","name":"Ka Muti","partySize":1},
-  {"slug":"ka-wiji","name":"Ka Wiji & Istri","partySize":2}
+  {"slug":"ka-wiji","name":"Ka Wiji & Istri","partySize":2},
+  {"slug":"bang-aris","name":"Bang Aris & Istri","partySize":2}
 ]
